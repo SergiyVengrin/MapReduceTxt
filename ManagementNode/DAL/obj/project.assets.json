@@ -719,19 +719,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
+    "C:\\Users\\sergi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VSProj\\MapReduce\\ManagementNode\\DAL\\DAL.csproj",
+      "projectUniqueName": "D:\\VisualStudioProjects\\MapReduce\\ManagementNode\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "D:\\VSProj\\MapReduce\\ManagementNode\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "D:\\VSProj\\MapReduce\\ManagementNode\\DAL\\obj\\",
+      "projectPath": "D:\\VisualStudioProjects\\MapReduce\\ManagementNode\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\sergi\\.nuget\\packages\\",
+      "outputPath": "D:\\VisualStudioProjects\\MapReduce\\ManagementNode\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sergi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -778,7 +778,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,20 +1,28 @@
 ﻿using BLL.Models;
+using BLL.POCOs;
 using BLL.Services.Interfaces;
-using System.Text;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Options;
 
 namespace BLL.Services.Implementation
 {
     public sealed class ManagementService : IManagementService
     {
-        private const int MAX_FILE_SIZE = 5;
-        private string[] ports = new string[] { "7139", "7140", "7141", "7142", "7143" };
+        private readonly IOptions<NodeConfig> _config;
+        private readonly IReadOnlyList<string> _ports = new List<string>() { "7139", "7140", "7141", "7142", "7143" };
+
+
+        public ManagementService(IOptions<NodeConfig> config)
+        {
+            _config = config;
+        }
 
 
         public List<FileModel> ParseFile(FileModel file)
         {
             List<FileModel> files = new List<FileModel>();
             int startIndex = 0;
-            int endIndex = MAX_FILE_SIZE;
+            int endIndex = _config.Value.MaxFileSize;
 
 
             if (file.Text.Length <= MAX_FILE_SIZE)
@@ -23,7 +31,7 @@ namespace BLL.Services.Implementation
 
                 files.Add(new FileModel
                 {
-                    Name = file.Name + "_" + ports[0],
+                    Name = file.Name + "_" + _ports[0],
                     Text = file.Text[startIndex..endIndex]
                 });
 
@@ -35,7 +43,7 @@ namespace BLL.Services.Implementation
             {
                 files.Add(new FileModel
                 {
-                    Name = file.Name + "_" + ports[i],
+                    Name = file.Name + "_" + _ports[i],
                     Text = file.Text[startIndex..endIndex],
                 });
 

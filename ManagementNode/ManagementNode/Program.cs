@@ -1,8 +1,10 @@
+using BLL.POCOs;
 using BLL.Services.Implementation;
 using BLL.Services.Interfaces;
 using DAL.Repositories.Implementation;
 using DAL.Repositories.Interfaces;
 using ManagementNode;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
@@ -13,7 +15,10 @@ builder.Services.AddTransient<IFileInfoRepository, FileInfoRepository>();
 builder.Services.AddTransient<IManagementService, ManagementService>();
 builder.Services.AddTransient<IFileInfoService, FileInfoService>();
 
+builder.Services.Configure<NodeConfig>(builder.Configuration.GetSection("NodeConfig"));
+
 builder.Services.AddControllers();
+
 
 var app = builder.Build();
 
