@@ -1,5 +1,4 @@
 ﻿using DAL.Data;
-using DAL.Entities;
 using DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +6,12 @@ namespace DAL.Repositories.Implementation
 {
     public sealed class FileInfoRepository : IFileInfoRepository
     {
-        private readonly NodeDbContext _db = new NodeDbContext();
+        private readonly NodeDbContext _db;
+
+        public FileInfoRepository(NodeDbContext nodeDbContext)
+        {
+            _db = nodeDbContext;
+        }
 
 
         public async Task Add(Entities.FileInfo nodeInfo)

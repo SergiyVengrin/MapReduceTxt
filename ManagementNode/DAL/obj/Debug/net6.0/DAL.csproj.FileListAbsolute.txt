@@ -10,3 +10,15 @@ D:\VSProj\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.dll
 D:\VSProj\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\refint\DAL.dll
 D:\VSProj\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.pdb
 D:\VSProj\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\ref\DAL.dll
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\bin\Debug\net6.0\DAL.deps.json
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\bin\Debug\net6.0\DAL.dll
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\bin\Debug\net6.0\DAL.pdb
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.csproj.AssemblyReference.cache
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.AssemblyInfoInputs.cache
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.AssemblyInfo.cs
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.csproj.CoreCompileInputs.cache
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.dll
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\refint\DAL.dll
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\DAL.pdb
+D:\VisualStudioProjects\MapReduce\ManagementNode\DAL\obj\Debug\net6.0\ref\DAL.dll

@@ -1,56 +1,59 @@
 ﻿using BLL.Models;
 using BLL.POCOs;
 using BLL.Services.Interfaces;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
 
 namespace BLL.Services.Implementation
 {
     public sealed class ManagementService : IManagementService
     {
+        private readonly IFileInfoService _fileInfoService;
         private readonly IOptions<NodeConfig> _config;
-        private readonly IReadOnlyList<string> _ports = new List<string>() { "7139", "7140", "7141", "7142", "7143" };
+        private readonly IReadOnlyList<string> _ports;
+
+        private List<FileModel> _files = new List<FileModel>();
 
 
-        public ManagementService(IOptions<NodeConfig> config)
+        public ManagementService(IOptions<NodeConfig> config, IFileInfoService fileInfoService)
         {
             _config = config;
+            _ports = _config.Value.Ports;
+            _fileInfoService = fileInfoService;
         }
 
 
         public List<FileModel> ParseFile(FileModel file)
         {
-            List<FileModel> files = new List<FileModel>();
             int startIndex = 0;
             int endIndex = _config.Value.MaxFileSize;
 
-
-            if (file.Text.Length <= MAX_FILE_SIZE)
+            if (file.Text.Length <= _config.Value.MaxFileSize)
             {
                 endIndex = file.Text.Length;
 
-                files.Add(new FileModel
+                _files.Add(new FileModel
                 {
-                    Name = file.Name + "_" + _ports[0],
+                    Port = _ports[0],
+                    Name = file.Name + "_" + _ports[0] + "_" + (GetPortsCount(_ports[0]) + 1),
                     Text = file.Text[startIndex..endIndex]
                 });
 
-                return files;
+                return _files;
             }
 
-
-            for (int i = 0; i < file.Text.Length / MAX_FILE_SIZE+1; i++)
+            for (int i = 0; i < file.Text.Length / _config.Value.MaxFileSize + 1; i++)
             {
-                files.Add(new FileModel
+                _files.Add(new FileModel
                 {
-                    Name = file.Name + "_" + _ports[i],
+                    Port = _ports[i%5],
+                    Name = file.Name + "_" + _ports[i % 5] + "_" + (GetPortsCount(_ports[i % 5]) + 1),
                     Text = file.Text[startIndex..endIndex],
                 });
 
-                if (endIndex + MAX_FILE_SIZE <= file.Text.Length)
+                if (endIndex + _config.Value.MaxFileSize <= file.Text.Length)
                 {
                     startIndex = endIndex;
-                    endIndex += MAX_FILE_SIZE;
+                    endIndex += _config.Value.MaxFileSize;
                 }
                 else
                 {
@@ -59,12 +62,19 @@ namespace BLL.Services.Implementation
                 }
             }
 
-            return files;
+            return _files;
         }
+
 
         public void SendFilesToNodes(List<FileModel> files)
         {
             throw new NotImplementedException();
+        }
+
+
+        private int GetPortsCount(string port)
+        {
+            return _files.Count(x => x.Port == port);
         }
     }
 }

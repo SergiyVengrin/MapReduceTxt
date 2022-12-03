@@ -21,6 +21,7 @@ namespace ManagementNode.Controllers
             _mapper = mapper;
         }
 
+
         [HttpPost]
         public IActionResult ParseFile(FileDto file) // TEST ACTION
         {

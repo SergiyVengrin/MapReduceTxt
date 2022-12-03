@@ -1,29 +1,14 @@
-﻿using DAL.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Data
 {
     public sealed class NodeDbContext : DbContext
     {
-        private readonly string _connectionString;
-
-        public NodeDbContext()
-        {
-            _connectionString = "Host=localhost;Port=5432;Database=NodesDb;Username=postgres;Password=1234567890";
-        }
+        public NodeDbContext(DbContextOptions<NodeDbContext> options) : base(options)
+        { }
 
         public DbSet<Entities.FileInfo> NodesInfo { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql(_connectionString, options =>
-            {
-                options.EnableRetryOnFailure(
-                    maxRetryCount: 3,
-                    maxRetryDelay: TimeSpan.FromSeconds(5),
-                    errorCodesToAdd: new List<string> { "4060" });
-            });
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
