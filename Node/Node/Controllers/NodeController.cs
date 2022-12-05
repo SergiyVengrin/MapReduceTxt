@@ -28,7 +28,7 @@ namespace Node.Controllers
                 return StatusCode(500, ex.Message);
             }
 
-            return Ok();
+            return Ok("Files Saved");
         }
     }
 }

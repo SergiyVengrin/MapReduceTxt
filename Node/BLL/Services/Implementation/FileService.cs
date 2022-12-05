@@ -23,7 +23,7 @@ namespace BLL.Services.Implementation
                 {
                     string path = _options.Value.FilePath + "\\" + file.Port;
                     Directory.CreateDirectory(path);
-                    path += "\\" + file.Name + ".txt";
+                    path += "\\" + file.Name + "_" + file.Version + ".txt";
 
                     using (StreamWriter sw = File.CreateText(path))
                     {
@@ -31,23 +31,7 @@ namespace BLL.Services.Implementation
                     }
                 }
             }
-            catch (DirectoryNotFoundException ex)
-            {
-                throw new DirectoryNotFoundException(ex.Message);
-            }
-            catch (FileLoadException ex)
-            {
-                throw new FileLoadException(ex.Message);
-            }
-            catch (IOException ex)
-            {
-                throw new IOException(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            catch { throw; }
         }
-
     }
 }
