@@ -8,22 +8,40 @@ namespace BLL.Services.Implementation
     public sealed class ManagementService : IManagementService
     {
         private readonly IFileInfoService _fileInfoService;
+        private readonly IHttpService _httpService;
+
         private readonly IOptions<NodeConfig> _config;
         private readonly IReadOnlyList<string> _ports;
 
-        private List<FileModel> _files = new List<FileModel>();
 
-
-        public ManagementService(IOptions<NodeConfig> config, IFileInfoService fileInfoService)
+        public ManagementService(IOptions<NodeConfig> config, IFileInfoService fileInfoService, IHttpService httpService)
         {
             _config = config;
             _ports = _config.Value.Ports;
             _fileInfoService = fileInfoService;
+            _httpService = httpService; 
         }
 
 
-        public List<FileModel> ParseFile(FileModel file)
+        public async Task SendFileToNodes(FileModel file)
         {
+            try
+            {
+                var files = DivideFile(file);
+
+                foreach (var p in _ports)
+                {
+                    await _httpService.SendAsync(files.Where(x => x.Port == p).ToList(), p);
+                }
+            }
+            catch { throw; }
+        }
+
+
+        private List<FileModel> DivideFile(FileModel file)
+        {
+            List<FileModel> _files = new List<FileModel>();
+
             int startIndex = 0;
             int endIndex = _config.Value.MaxFileSize;
 
@@ -34,8 +52,9 @@ namespace BLL.Services.Implementation
                 _files.Add(new FileModel
                 {
                     Port = _ports[0],
-                    Name = file.Name + "_" + _ports[0] + "_" + (GetPortsCount(_ports[0]) + 1),
-                    Text = file.Text[startIndex..endIndex]
+                    Name = file.Name,
+                    Text = file.Text[startIndex..endIndex],
+                    Version = (GetPortsCount(_files, _ports[0]) + 1)
                 });
 
                 return _files;
@@ -45,9 +64,10 @@ namespace BLL.Services.Implementation
             {
                 _files.Add(new FileModel
                 {
-                    Port = _ports[i%5],
-                    Name = file.Name + "_" + _ports[i % 5] + "_" + (GetPortsCount(_ports[i % 5]) + 1),
+                    Port = _ports[i % 5],
+                    Name = file.Name,
                     Text = file.Text[startIndex..endIndex],
+                    Version = (GetPortsCount(_files, _ports[i % 5]) + 1)
                 });
 
                 if (endIndex + _config.Value.MaxFileSize <= file.Text.Length)
@@ -66,15 +86,9 @@ namespace BLL.Services.Implementation
         }
 
 
-        public void SendFilesToNodes(List<FileModel> files)
+        private int GetPortsCount(List<FileModel> files, string port)
         {
-            throw new NotImplementedException();
-        }
-
-
-        private int GetPortsCount(string port)
-        {
-            return _files.Count(x => x.Port == port);
+            return files.Count(x => x.Port == port);
         }
     }
 }

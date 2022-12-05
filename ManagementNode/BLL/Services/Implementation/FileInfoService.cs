@@ -19,23 +19,32 @@ namespace BLL.Services.Implementation
 
         public async Task Add(FileInfoModel nodeInfo)
         {
-            await _fileRepository.Add(_mapper.Map<DAL.Entities.FileInfo>(nodeInfo));
+            try
+            {
+                await _fileRepository.Add(_mapper.Map<DAL.Entities.FileInfo>(nodeInfo));
+            }
+            catch { throw; }
         }
 
         public async Task Delete(FileInfoModel nodeInfo)
         {
-            await _fileRepository.Delete(_mapper.Map<DAL.Entities.FileInfo>(nodeInfo));
+            try
+            {
+                await _fileRepository.Delete(_mapper.Map<DAL.Entities.FileInfo>(nodeInfo));
+            }
+            catch { throw; }
         }
 
         public async Task<FileInfoModel> Get(int id)
         {
-            var nodeInfo = await _fileRepository.Get(id);
-            if(nodeInfo is null)
+            try
             {
-                throw new Exception("NodeInfo is null");
+                var nodeInfo = await _fileRepository.Get(id);
+                return _mapper.Map<Models.FileInfoModel>(nodeInfo);
             }
-
-            return _mapper.Map<Models.FileInfoModel>(nodeInfo);
+            catch { throw; }
         }
+
+
     }
 }

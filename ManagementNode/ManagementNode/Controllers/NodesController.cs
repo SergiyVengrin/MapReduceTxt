@@ -23,18 +23,31 @@ namespace ManagementNode.Controllers
 
 
         [HttpPost]
-        public IActionResult ParseFile(FileDto file) // TEST ACTION
+        public async Task<IActionResult> SaveFile(FileDto file)
         {
-            var files = _managementService.ParseFile(_mapper.Map<FileModel>(file));
-
-            return Ok(files);
+            try
+            {
+                await _managementService.SendFileToNodes(_mapper.Map<FileModel>(file));
+                return Ok();
+            }
+            catch (Exception ex)    
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
 
         [HttpPost]
         public IActionResult AddFileInfo(FileInfoDto fileInfoDto)
         {
-            _fileInfoService.Add(_mapper.Map<FileInfoModel>(fileInfoDto));
+            try
+            {
+                _fileInfoService.Add(_mapper.Map<FileInfoModel>(fileInfoDto));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }
@@ -44,7 +57,6 @@ namespace ManagementNode.Controllers
         {
             try
             {
-                var nodeInfo = await _fileInfoService.Get(id);
                 return Ok(_mapper.Map<FileInfoDto>(await _fileInfoService.Get(id)));
             }
             catch (Exception ex)

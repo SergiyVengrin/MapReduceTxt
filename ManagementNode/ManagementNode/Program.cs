@@ -12,17 +12,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpClient<IHttpService, HttpService>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddTransient<IFileInfoRepository, FileInfoRepository>();
 builder.Services.AddTransient<IManagementService, ManagementService>();
 builder.Services.AddTransient<IFileInfoService, FileInfoService>();
+builder.Services.AddTransient<IHttpService, HttpService>();
 
 builder.Services.Configure<NodeConfig>(builder.Configuration.GetSection("NodeConfig"));
 
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<NodeDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("NodesDbConnectionString"), npgsqlOptions =>
+    options.UseNpgsql(builder.Configuration?.GetConnectionString("NodesDbConnectionString"), npgsqlOptions =>
     {
         npgsqlOptions.EnableRetryOnFailure(
             maxRetryCount: 3,

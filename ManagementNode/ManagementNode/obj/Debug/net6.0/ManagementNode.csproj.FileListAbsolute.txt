@@ -59,6 +59,9 @@ D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0
 D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Binder.dll
 D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.Http.dll
+D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 D:\VisualStudioProjects\MapReduce\ManagementNode\ManagementNode\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll

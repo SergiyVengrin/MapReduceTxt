@@ -21,11 +21,9 @@ namespace DAL.Repositories.Implementation
                 await _db.NodesInfo.AddAsync(nodeInfo);
                 await _db.SaveChangesAsync();
             }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            catch { throw; }
         }
+
 
         public async Task Delete(Entities.FileInfo nodeInfo)
         {
@@ -34,15 +32,17 @@ namespace DAL.Repositories.Implementation
                 _db.NodesInfo.Remove(nodeInfo);
                 await _db.SaveChangesAsync();
             }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            catch { throw; }
         }
+
 
         public async Task<Entities.FileInfo> Get(int id)
         {
-            return await _db.NodesInfo.SingleAsync(n => n.Id == id);
+            try
+            {
+                return await _db.NodesInfo.SingleAsync(n => n.Id == id);
+            }
+            catch { throw; }
         }
     }
 }
